@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	 http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	 http://www.springframework.org/schema/context 
+	 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	
+	<!-- 引入属性文件 classpath代表src/main/resources-->
+	<context:property-placeholder location="classpath:database-config.properties" />
+	
+	<!-- 自动扫描注入，注解里有@Service的自动注入 -->
+	<context:component-scan base-package="com.jiang.seven.service.*"></context:component-scan>
+	
+	<!-- 该 BeanPostProcessor 将自动对标注 @Autowired 的 Bean 进行注入 -->     
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>  
+    
+    <!-- <bean id="springApplicationContext" class=""></bean> -->
+    
+    <!-- 获取bean工具注入 -->
+    <bean id="springContextHolder" class="com.jiang.seven.common.SpringContextHolder" lazy-init="false"/>
+	
+	
+</beans>

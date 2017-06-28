@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/main/resources/config.properties=UTF-8
+encoding//src/main/resources/database-config.properties=UTF-8
+encoding//target/m2e-wtp/web-resources/login.jsp=UTF-8
+encoding/<project>=UTF-8

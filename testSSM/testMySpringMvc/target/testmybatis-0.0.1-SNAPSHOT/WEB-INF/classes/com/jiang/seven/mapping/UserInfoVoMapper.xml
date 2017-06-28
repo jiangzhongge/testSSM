@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiang.seven.dao.UserInfoVoMapper">
+  <resultMap id="BaseResultMap" type="com.jiang.seven.entity.UserInfoVo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, update_time, name, pwd
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jiang.seven.entity.UserInfoVo">
+    insert into t_user (id, create_time, update_time, 
+      name, pwd)
+    values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiang.seven.entity.UserInfoVo">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="pwd != null">
+        pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiang.seven.entity.UserInfoVo">
+    update t_user
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.jiang.seven.entity.UserInfoVo">
+    update t_user
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+ <!--  N + 1 次查询 -->
+ <select id="selectUserRole" parameterType="java.lang.String" resultType="com.jiang.seven.entity.UserRoleInfoVo">
+  	SELECT
+	t_user_role.id,
+	t_user_role.role_id,
+	t_user_role.user_id
+	FROM
+	t_user_role
+	where t_user_role.user_id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <resultMap type="com.jiang.seven.entity.UserInfoVo" id="userResultMap" extends="BaseResultMap">
+  	<!-- 重复了 加入extends="BaseResultMap" -->
+  	<id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+     <!-- userRoles 要对应实体类里的变量名称  column:对应要去查询的id，即t_user的主键 ;
+    javaType :返回的类型  select:通过这个查询得到list
+        对应list用collection ，<association property=""></association>关系，表示对应一个对象
+    -->
+    <collection property="userRoles" column="id" javaType="list" select="selectUserRole"></collection>
+  </resultMap>
+  
+  <select id="getAll" resultMap="userResultMap">
+  	select * from t_user
+  </select> 
+  
+  <resultMap type="com.jiang.seven.entity.UserInfoVo" id="userResultMap1" extends="BaseResultMap">
+  	<collection property="userRoles" javaType="list" ofType="com.jiang.seven.entity.UserRoleInfoVo">
+ 	<!-- 对应后台的  private List<UserRoleInfoVo> userRoles ; ofType ：list里的对象-->
+ 		<id property="id" column="userrole_id"/> 
+ 		<!-- property 对象属性名 ，column 下面select 出来的名字 ↓ -->
+ 		<result property="roleId" column="role_id"/>
+ 		<result property="userId" column="user_id"/>
+ 	</collection>
+  </resultMap>
+  
+  <select id="getAll1" resultMap="userResultMap1">
+  	SELECT
+	t_user.id,
+	t_user.create_time,
+	t_user.update_time,
+	t_user.`name`,
+	t_user.pwd,
+	t_user_role.id userrole_id,
+	t_user_role.role_id role_id,
+	t_user_role.user_id user_id
+	FROM
+	t_user
+	JOIN t_user_role ON t_user.id = t_user_role.user_id
+  </select>
+  
+  <resultMap type="com.jiang.seven.entity.UserInfoVo" id="userResultMap2" extends="BaseResultMap">
+  	<collection property="userRoles" javaType="list" ofType="com.jiang.seven.entity.UserRoleInfoVo">
+ 		<id property="id" column="userrole_id"/> 
+ 		<result property="roleId" column="role_id"/>
+ 		<result property="userId" column="user_id"/>
+ 		
+ 		<association property="roleInfoVo" javaType="com.jiang.seven.entity.RoleInfoVo">
+ 			<id property="id" column="role_id"/>
+ 			<result property="text" column="role_text"/>
+ 		</association>
+ 	</collection>
+  </resultMap>
+  
+  <select id="getAll2" resultMap="userResultMap2">
+   	SELECT
+	t_user.id,
+	t_user.create_time,
+	t_user.update_time,
+	t_user.`name`,
+	t_user.pwd,
+	t_user_role.id userrole_id,
+	t_user_role.role_id role_id,
+	t_user_role.user_id user_id,
+	t_role.id role_id,
+	t_role.text role_text
+	FROM
+	t_user
+	JOIN t_user_role ON t_user.id = t_user_role.user_id
+	JOIN t_role ON t_user_role.role_id = t_role.id
+  </select>
+</mapper>

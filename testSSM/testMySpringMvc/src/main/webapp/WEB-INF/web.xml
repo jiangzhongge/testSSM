@@ -1,0 +1,94 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <!-- 项目描述 -->
+  <display-name>Archetype Created Web Application</display-name>
+  
+  <!-- spring 和 mybatis 整合 文件位置 -->
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>classpath:spring.xml,classpath:spring-security.xml,classpath:spring-mybatis.xml,classpath:spring-mongodb.xml,classpath:spring-redis.xml</param-value>
+  	<!-- <param-value>classpath:spring.xml,classpath:spring-security.xml,classpath:spring-mybatis.xml,classpath:spring-mongodb.xml,classpath:spring-redis.xml</param-value> -->
+  </context-param>
+ <!--   <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>classpath:spring.xml,classpath:spring-mybatis.xml</param-value>
+  </context-param> -->
+  
+  <!-- 字符集配置 -->
+  <filter>
+  	<filter-name>encodingFilter</filter-name>
+  	<description>字符集过滤器</description>
+  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  		<description>字符集编码</description>
+  	</init-param>
+  	<!-- 配置请求过滤器，编码格式设为UTF-8，避免中文乱码 -->
+  	<init-param>  
+            <param-name>forceEncoding</param-name>  
+            <param-value>true</param-value>  
+    </init-param>  
+  </filter>
+  
+   <!-- 然后接着是SpringSecurity必须的filter 优先配置，让SpringSecurity先加载，防止SpringSecurity拦截失效-->
+  <!-- spring security configure-->
+  <!-- springSecurityFilterChain 过滤器必须放在最前面，因为spring security的安全机制是保护在web最外层的安全框架，
+   所以你的任何访问都要经过spring security 投票机制授权才可以访问的，否则不允许访问。只有登陆用户才可以访问。 -->
+  <filter> 
+      <filter-name>springSecurityFilterChain</filter-name> 
+      <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
+  </filter> 
+  
+ <filter-mapping>
+  	<filter-name>encodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping> 
+      <filter-name>springSecurityFilterChain</filter-name> 
+      <url-pattern>/*</url-pattern> 
+  </filter-mapping>	
+  
+  <!-- 所以，要在web.xml下面配置好监听，让服务器启动时就初始化改类，可以得到request-->
+  <!-- HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest(); -->
+  <listener>  
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
+  </listener>  
+  <!-- spring listener spring监听器-->
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- 防止spring内存溢出监听器 -->
+  <listener>
+  	<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+  
+  <!-- spring mvc servlet -->
+  <servlet>
+  	<servlet-name>springMvc</servlet-name>
+  	<description>spring mvc servlet</description>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>classpath:spring-mvc.xml</param-value>
+  		<description>spring mvc 配置文件</description>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>springMvc</servlet-name>
+  	<url-pattern>/</url-pattern>  <!-- *.action -->
+  </servlet-mapping>
+  
+  <!-- 配置session超时时间，单位分钟 -->
+  <session-config>
+  	<session-timeout>15</session-timeout>
+  </session-config>
+  
+   <welcome-file-list>
+  	<welcome-file>/index.jsp</welcome-file>
+   </welcome-file-list>
+</web-app>

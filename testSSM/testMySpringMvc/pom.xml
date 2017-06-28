@@ -1,0 +1,226 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>jzg.testmybatis</groupId>
+  <artifactId>testmybatis</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>testmybatis Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <!-- <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency> -->
+   <!--  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>3.2.0.RELEASE</version>
+	</dependency> -->
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-core</artifactId>
+	    <version>4.3.4.RELEASE</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>4.3.4.RELEASE</version>
+	</dependency>
+	<!-- <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>4.0.2.RELEASE</version>
+	</dependency> -->
+	
+	<!-- springmvc jar -->
+	<!-- <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>3.2.13.RELEASE</version>
+	</dependency> -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>4.3.4.RELEASE</version>
+	</dependency>
+		
+    <!-- spring test tool -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>3.2.10.RELEASE</version>
+	</dependency>
+   
+	<dependency>
+	 <groupId>org.mybatis</groupId>
+	 <artifactId>mybatis</artifactId>
+	 <version>3.1.1</version>
+	</dependency>
+	<dependency>
+	 <groupId>org.mybatis</groupId>
+	 <artifactId>mybatis-spring</artifactId>
+	 <version>1.1.1</version>
+	</dependency>
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>5.1.22</version>
+	</dependency>
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.11</version>
+	    <scope>test</scope>
+	    <!-- 作用域刻画测试环境使用-->
+	</dependency>
+		<!-- 阿里巴巴 druid数据源-->
+	    <dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>druid</artifactId>
+	    <version>1.0.26</version>
+	</dependency>
+	<!-- junit测试时缺少此jar -->
+	<dependency>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjweaver</artifactId>
+	    <version>1.7.4</version>
+	</dependency>
+	
+	<!-- json jar 包 -->
+	<dependency>
+	    <groupId>org.codehaus.jackson</groupId>
+	    <artifactId>jackson-mapper-asl</artifactId>
+	    <version>1.9.13</version>
+	</dependency>
+	
+	<!-- 文件上传 -->
+	<dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	    <version>1.3.2</version>
+	</dependency>
+	
+	<!-- servlet jar -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>servlet-api</artifactId>
+	    <version>3.0-alpha-1</version>
+	</dependency>
+	
+	<!-- jstl jar -->
+	<dependency>
+	    <groupId>jstl</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
+	</dependency>
+	
+	<!-- log4j jar -->
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.17</version>
+	</dependency>
+	
+	<!-- fastjson alibaba jar-->
+  	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>1.2.22</version>
+	</dependency>
+	
+	<!-- spring security web -->
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-web</artifactId>
+	    <version>4.2.0.RELEASE</version>
+	</dependency>
+	
+	<!-- spring security config -->
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-config</artifactId>
+	    <version>4.2.0.RELEASE</version>
+	</dependency>
+	
+	<!-- jackson-core -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>2.8.5</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>2.8.5</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.directory.studio</groupId>
+	    <artifactId>org.apache.commons.lang</artifactId>
+	    <version>2.6</version>
+	</dependency>
+	
+	<!-- slf4j jar slf4j-api -->
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-api</artifactId>
+	    <version>1.7.22</version>
+	</dependency>
+	
+	<!--org.mongodb jar  -->
+	<dependency>
+	    <groupId>org.mongodb</groupId>
+	    <artifactId>mongodb-driver</artifactId>
+	    <version>3.4.1</version>
+	</dependency>
+	
+	<!-- spring-data-mongodb jar -->
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-mongodb</artifactId>
+	    <version>1.9.6.RELEASE</version>
+	</dependency>
+	<!-- spring-data-mongodb-log4j jar -->
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-mongodb-log4j</artifactId>
+	    <version>1.9.6.RELEASE</version>
+	</dependency>
+	<!-- spring-data-mongodb-cross-store jar -->
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-mongodb-cross-store</artifactId>
+	    <version>1.9.6.RELEASE</version>
+	</dependency>
+	<!-- spring-data-commons-core jar -->
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-commons-core</artifactId>
+	    <version>1.4.1.RELEASE</version>
+	</dependency>
+	
+	<!-- spring redis -->
+	<dependency>
+		 <groupId>org.springframework.data</groupId>
+		 <artifactId>spring-data-redis</artifactId>
+		 <version>1.7.6.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	    <version>2.9.0</version>
+	</dependency>
+	<dependency>  
+        <groupId>org.apache.commons</groupId>  
+        <artifactId>commons-lang3</artifactId>  
+        <version>3.3.2</version>  
+	</dependency> 
+  </dependencies>
+  <build>
+  </build>
+</project>
